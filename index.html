@@ -24,40 +24,9 @@
             font-family: Arial, sans-serif;
         }
 
-        .top-bar {
-            text-align: center;
-            padding: 25px 20px;
-            background: #ffffff;
-        }
-
-        .top-bar h1 {
-            margin: 0 0 10px;
-        }
-
-        .top-bar p {
-            margin: 0 0 20px;
-        }
-
-        .open-button {
-            display: inline-block;
-            padding: 15px 25px;
-            background: #000;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 18px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .pdf-container {
-            width: 100%;
-            height: calc(100vh - 180px);
-        }
-
         iframe {
             width: 100%;
-            height: 100%;
+            height: 100vh;
             border: none;
         }
     </style>
@@ -65,39 +34,37 @@
 
 <body>
 
-    <div class="top-bar">
+    <div style="text-align: center; padding: 40px 20px;">
 
         <h1>View Document</h1>
 
         <p>
-            Tap the button below to start the music and open the document.
+            Click the button below to open the full document.
         </p>
 
-        <button
+        <a
+            href="https://pub-28f655fac77a46cab49a69b0807a0924.r2.dev/10.pdf#page1"
+            target="_blank"
             id="openPdfButton"
-            class="open-button"
+            style="
+                display: inline-block;
+                padding: 15px 25px;
+                background: #000;
+                color: white;
+                text-decoration: none;
+                border-radius: 8px;
+                font-size: 18px;
+            "
         >
             📖 Open PDF
-        </button>
+        </a>
 
     </div>
 
 
-    <div class="pdf-container">
+    <!-- AUDIO -->
 
-        <iframe
-            id="pdfViewer"
-            src=""
-        ></iframe>
-
-    </div>
-
-
-    <audio
-        id="backgroundMusic"
-        loop
-        preload="auto"
-    >
+    <audio id="backgroundMusic" loop>
         <source
             src="https://pub-28f655fac77a46cab49a69b0807a0924.r2.dev/nastelbom-background-music-602518.mp3"
             type="audio/mpeg"
@@ -111,35 +78,10 @@
 
         const music = document.getElementById("backgroundMusic");
 
-        const pdfViewer = document.getElementById("pdfViewer");
 
+        button.addEventListener("click", function () {
 
-        const pdfUrl =
-            "https://pub-28f655fac77a46cab49a69b0807a0924.r2.dev/10.pdf";
-
-
-        button.addEventListener("click", async function () {
-
-            try {
-
-                // Start the music
-                await music.play();
-
-                // Open the PDF inside this same webpage
-                pdfViewer.src = pdfUrl;
-
-                // Hide the top section so there is more room for the PDF
-                document.querySelector(".top-bar").style.display = "none";
-
-            } catch (error) {
-
-                console.log("Music could not start:", error);
-
-                // Still open the PDF even if the music fails
-                pdfViewer.src = pdfUrl;
-
-                document.querySelector(".top-bar").style.display = "none";
-            }
+            music.play();
 
         });
 
