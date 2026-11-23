@@ -17,7 +17,7 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            min-height: 100%;
+            height: 100%;
         }
 
         body {
@@ -25,33 +25,21 @@
             font-family: Arial, sans-serif;
         }
 
-        #openingScreen {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        #openPdfButton {
-            display: inline-block;
-            padding: 15px 25px;
-            background: #000;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 18px;
-        }
-
-        #directPdfLink {
+        iframe {
             display: block;
-            margin-top: 20px;
-            color: #333;
-            font-size: 14px;
+            width: 100%;
+            height: 100vh;
+            min-height: 100vh;
+            border: none;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
         }
     </style>
 </head>
 
 <body>
 
-    <div id="openingScreen">
+    <div id="openingScreen" style="text-align: center; padding: 40px 20px;">
 
         <h1>View Document</h1>
 
@@ -59,23 +47,35 @@
             Click the button below to open the full document.
         </p>
 
-        <a href="#" id="openPdfButton">
+        <a
+            href="https://pub-28f655fac77a46cab49a69b0807a0924.r2.dev/ksm%20brochure%20inner.pdf#page=1"
+            id="openPdfButton"
+            style="
+                display: inline-block;
+                padding: 15px 25px;
+                background: #000;
+                color: white;
+                text-decoration: none;
+                border-radius: 8px;
+                font-size: 18px;
+            "
+        >
             📖 Open PDF
         </a>
 
-        <a
-            href="https://pub-28f655fac77a46cab49a69b0807a0924.r2.dev/ksm%20brochure%20inner.pdf"
-            id="directPdfLink"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Having trouble? Open the PDF directly.
-        </a>
+    </div>
+
+    <div id="pdfContainer" style="display: none; width: 100%; height: 100vh; overflow: auto; -webkit-overflow-scrolling: touch;">
+
+        <iframe id="pdfViewer" title="PDF document"></iframe>
 
     </div>
 
     <script>
         const button = document.getElementById("openPdfButton");
+        const openingScreen = document.getElementById("openingScreen");
+        const pdfContainer = document.getElementById("pdfContainer");
+        const pdfViewer = document.getElementById("pdfViewer");
 
         const pdfUrl =
             "https://pub-28f655fac77a46cab49a69b0807a0924.r2.dev/ksm%20brochure%20inner.pdf";
@@ -83,12 +83,10 @@
         button.addEventListener("click", function (event) {
             event.preventDefault();
 
-            const viewerUrl =
-                "/pdfjs/web/viewer.html?file="
-                + encodeURIComponent(pdfUrl)
-                + "#page=1&zoom=page-width";
+            pdfViewer.src = pdfUrl + "#page=1";
 
-            window.location.href = viewerUrl;
+            openingScreen.style.display = "none";
+            pdfContainer.style.display = "block";
         });
     </script>
 
