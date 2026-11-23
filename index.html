@@ -48,7 +48,7 @@
         </p>
 
         <a
-            href="https://pub-28f655fac77a46cab49a69b0807a0924.r2.dev/10.pdf#page1"
+            href="https://pub-28f655fac77a46cab49a69b0807a0924.r2.dev/ksm%20brochure%20inner.pdf#page=1"
             id="openPdfButton"
             style="
                 display: inline-block;
@@ -65,45 +65,30 @@
 
     </div>
 
-    <audio id="backgroundMusic" loop>
-        <source
-            src="https://pub-28f655fac77a46cab49a69b0807a0924.r2.dev/nastelbom-background-music-602518.mp3"
-            type="audio/mpeg"
-        >
-    </audio>
-
     <div id="pdfContainer" style="display: none; width: 100%; height: 100vh; overflow: auto; -webkit-overflow-scrolling: touch;">
+
         <iframe id="pdfViewer" title="PDF document"></iframe>
+
     </div>
 
-    
-<script>
-    const button = document.getElementById("openPdfButton");
-    const music = document.getElementById("backgroundMusic");
-    const openingScreen = document.getElementById("openingScreen");
-    const pdfContainer = document.getElementById("pdfContainer");
-    const pdfViewer = document.getElementById("pdfViewer");
+    <script>
+        const button = document.getElementById("openPdfButton");
+        const openingScreen = document.getElementById("openingScreen");
+        const pdfContainer = document.getElementById("pdfContainer");
+        const pdfViewer = document.getElementById("pdfViewer");
 
-    const pdfUrl =
-        "https://pub-28f655fac77a46cab49a69b0807a0924.r2.dev/10.pdf";
+        const pdfUrl =
+            "https://pub-28f655fac77a46cab49a69b0807a0924.r2.dev/ksm%20brochure%20inner.pdf";
 
-    button.addEventListener("click", async function (event) {
-        event.preventDefault();
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
 
-        // Start the music.
-        try {
-            await music.play();
-        } catch (error) {
-            console.error("Music could not start:", error);
-        }
+            pdfViewer.src = pdfUrl + "#page=1";
 
-        // Display the PDF directly from Cloudflare R2.
-        pdfViewer.src = pdfUrl + "#page=1";
-
-        openingScreen.style.display = "none";
-        pdfContainer.style.display = "block";
-    });
-</script>
+            openingScreen.style.display = "none";
+            pdfContainer.style.display = "block";
+        });
+    </script>
 
 </body>
 </html>
