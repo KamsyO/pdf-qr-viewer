@@ -83,10 +83,7 @@
         button.addEventListener("click", function (event) {
             event.preventDefault();
 
-            pdfViewer.src = pdfUrl + "#page=1";
-
-            openingScreen.style.display = "none";
-            pdfContainer.style.display = "block";
+            window.location.href = pdfUrl + "#page=1";
         });
     </script>
 
